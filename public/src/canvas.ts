@@ -35,7 +35,7 @@ export default class Canvas {
         //     square.display();
         // }
         if (ctx) {
-            this.drawHeart(innerWidth / 2, 0, 100, 0, innerWidth, 500, "red");
+            this.drawHeart(innerWidth / 2, 0, 100, 0, 200, 500, "red");
         }
         requestAnimationFrame(() => this.display(squares));
     };
