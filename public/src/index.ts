@@ -2,9 +2,9 @@ import Canvas from "./canvas";
 import Square from "./square";
 
 let squares = [];
-const length = 10;
-const squaresInRow = Math.ceil(innerWidth / length);
-const squaresInColumn = Math.ceil(innerHeight / length);
+let length = 10;
+const squaresInRow = 144 || Math.ceil(innerWidth / length);
+const squaresInColumn = 72 || Math.ceil(innerHeight / length);
 const canvas = Canvas.createInstance({id: 'canvas', w: squaresInRow * length, h: squaresInColumn * length});
 
 for (let x = 0; x < squaresInRow; x++) {
