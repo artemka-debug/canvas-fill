@@ -35,5 +35,8 @@
     "@types/node": "^14.11.1",
     "ts-loader": "^8.0.4",
     "webpack-cli": "^3.3.12"
+  },
+  "engines": {
+    "node": ">=0.12"
   }
 }
