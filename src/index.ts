@@ -3,7 +3,6 @@ import redis from 'redis';
 import {Request, Response} from 'express-serve-static-core'
 import dotenv from 'dotenv';
 import bodyParser from "body-parser";
-import {prependListener} from "cluster";
 
 dotenv.config();
 const app = express();
@@ -18,6 +17,8 @@ if (process.env.REDIS_URL) {
 
 app.use(express.static('public'));
 app.use(bodyParser.json());
+
+redisClient.set('squares', '[]');
 
 app.post('/fill-square', (req: Request, res: Response) => {
     const {id} = req.body;
