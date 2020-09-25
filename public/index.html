@@ -10,20 +10,70 @@
         .inner {
             width: 10px;
             height: 10px;
-            border: 1px solid black;
+            border: 1px solid gray;
         }
 
         .outer {
             display: flex
         }
 
+        .alert {
+            position: absolute;
+            padding: .75rem 1.25rem;
+            margin: 1rem 1rem;
+            border: 1px solid transparent;
+            border-radius: .25rem;
+            animation: popup-error 1s;
+            -webkit-animation: popup-error 1s;;
+        }
+
+        .alert-danger {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+
+        .alert-dismissible {
+            padding-right: 4rem;
+        }
+
+        .fade.show {
+            opacity: 1;
+        }
+
         html {
             height: 100%;
             width: 100%;
         }
+
+        @keyframes popup-error {
+            from {
+                margin: 1rem -25rem;
+            }
+
+            to {
+                margin: 1rem 1rem;
+            }
+        }
+
+        .fade-away {
+            animation: fade-away 0.3s;
+            animation-delay: 2.7s;
+        }
+
+        @keyframes fade-away {
+            from {
+                opacity: 1;
+            }
+
+            to {
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body style="margin: 0; padding: 0">
+<div id="placeholder"></div>
 <script src="bundle.js"></script>
 </body>
 </html>

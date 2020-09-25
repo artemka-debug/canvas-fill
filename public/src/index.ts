@@ -1,12 +1,21 @@
-import Canvas from "./canvas";
-import Square from "./square";
+import Axios from 'axios';
+import {changeDivBackgroundColor, displayPopupMessage} from './utils'
 
-let squares: Square[] = [];
-// @ts-ignore
-window.squares = squares;
-let length = 10;
 const squaresInRow = 72 || Math.ceil(innerWidth / length);
 const squaresInColumn = 144 || Math.ceil(innerHeight / length);
+
+(async () => {
+    try {
+        const res = await Axios.get('/indexes');
+        const indexes = res.data.result;
+
+        for (const index of indexes) {
+            changeDivBackgroundColor(index);
+        }
+    } catch (e) {
+        console.error(e);
+    }
+})()
 
 for (let x = 0; x < squaresInRow; x++) {
     const outerDiv = document.createElement('div');
@@ -17,23 +26,26 @@ for (let x = 0; x < squaresInRow; x++) {
         const div = document.createElement('div');
         div.className = 'inner';
         div.id = `${index}`;
-        div.addEventListener('mousedown', (e: MouseEvent) => {
+        div.addEventListener('mousedown', async (e: MouseEvent) => {
             if (e.target) {
                 // @ts-ignore
                 const id = e.target.id;
-                const div = document.getElementById(id);
 
-                if (div) {
-                    div.style.backgroundColor = 'blue'
+                changeDivBackgroundColor(id);
+                try {
+                    const res = await Axios.post('/fill-square', {
+                        id
+                    });
+                } catch (e) {
+                    changeDivBackgroundColor(id, 'blank');
+                    displayPopupMessage('There was an error with changing color of pixel!');
                 }
             }
         })
 
         outerDiv.appendChild(div);
-        // squares[x * (squaresInRow - squaresInColumn) + y] = new Square({x: x * length, y: y * length, l: length, color: 'white'});
     }
 
     document.body.appendChild(outerDiv);
 }
 
-// canvas.display(squares);
