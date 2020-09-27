@@ -75,5 +75,13 @@
 <body style="margin: 0; padding: 0">
 <div id="placeholder"></div>
 <script src="bundle.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+<script>
+    $(function () {
+        window.socket = io();
+    });
+</script>
 </body>
 </html>

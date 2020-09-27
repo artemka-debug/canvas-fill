@@ -2,11 +2,15 @@ import express from 'express';
 import redis from 'redis';
 import {Request, Response} from 'express-serve-static-core'
 import dotenv from 'dotenv';
+import io from 'socket.io';
+import http from 'http';
 import bodyParser from "body-parser";
 
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 8080;
+const server = new http.Server(app);
+let socket = io(server);
 let redisClient: redis.RedisClient;
 
 if (process.env.REDIS_URL) {
@@ -18,10 +22,14 @@ if (process.env.REDIS_URL) {
 app.use(express.static('public'));
 app.use(bodyParser.json());
 
-redisClient.set('squares', '[]');
+socket.on('connection', (socket) => {
+    socket.on('fill-square', (id: number, color: string) => {
+        console.log(id, color);
+    });
+});
 
 app.post('/fill-square', (req: Request, res: Response) => {
-    const {id} = req.body;
+    const {id, color} = req.body;
 
     redisClient.get('squares', (err, reply) => {
         let json;
@@ -30,10 +38,11 @@ app.post('/fill-square', (req: Request, res: Response) => {
         }
 
         if (!json.includes(id)) {
-            json.push(id);
+            json.push({id, color});
         }
 
         const stringArray = JSON.stringify(json);
+        socket.emit('fill-square', {id, color});
         res.json({result: redisClient.set('squares', stringArray)})
     });
 });
@@ -53,6 +62,6 @@ app.get('/', (req: Request, res: Response) => {
     res.send('index.html');
 });
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);
 });

@@ -1,5 +1,6 @@
 import Axios from 'axios';
-import {changeDivBackgroundColor, displayPopupMessage} from './utils'
+import {changeDivBackgroundColor, displayPopupMessage} from './utils';
+import {colors} from './config';
 
 const squaresInRow = 72 || Math.ceil(innerWidth / length);
 const squaresInColumn = 144 || Math.ceil(innerHeight / length);
@@ -9,11 +10,11 @@ const squaresInColumn = 144 || Math.ceil(innerHeight / length);
         const res = await Axios.get('/indexes');
         const indexes = res.data.result;
 
-        for (const index of indexes) {
-            changeDivBackgroundColor(index);
+        for (const data of indexes) {
+            changeDivBackgroundColor(data.id, data.color);
         }
     } catch (e) {
-        console.error(e);
+        displayPopupMessage('There was an error with getting filled pixels!');
     }
 })()
 
@@ -31,13 +32,14 @@ for (let x = 0; x < squaresInRow; x++) {
                 // @ts-ignore
                 const id = e.target.id;
 
-                changeDivBackgroundColor(id);
+                const color = colors[Math.floor(Math.random() * 4)];
+                changeDivBackgroundColor(id, color);
                 try {
                     const res = await Axios.post('/fill-square', {
-                        id
+                        id, color
                     });
                 } catch (e) {
-                    changeDivBackgroundColor(id, 'blank');
+                    changeDivBackgroundColor(id, 'white');
                     displayPopupMessage('There was an error with changing color of pixel!');
                 }
             }

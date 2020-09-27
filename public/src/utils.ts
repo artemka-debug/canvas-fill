@@ -1,14 +1,8 @@
-const colors = ['#562c2c', '#f2542d', '#0e9594', '#127475'];
-
-const changeDivBackgroundColor = (id: string, flag: string = '') => {
+const changeDivBackgroundColor = (id: string, color: string = '') => {
     const div = document.getElementById(id);
 
     if (div) {
-        if (flag === 'blank') {
-            div.style.backgroundColor = 'white';
-        } else {
-            div.style.backgroundColor = colors[Math.floor(Math.random() * 4)]
-        }
+        div.style.backgroundColor = color;
     }
 }
 
