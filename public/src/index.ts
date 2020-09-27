@@ -1,6 +1,14 @@
 import Axios from 'axios';
 import {changeDivBackgroundColor, displayPopupMessage} from './utils';
 import {colors} from './config';
+import io from 'socket.io-client';
+
+const socket = io();
+const socketClient = socket.connect();
+
+socketClient.on('fill-square', ({id, color}: {id: string, color: string}) => {
+    changeDivBackgroundColor(id, color);
+});
 
 const squaresInRow = 72 || Math.ceil(innerWidth / length);
 const squaresInColumn = 144 || Math.ceil(innerHeight / length);
