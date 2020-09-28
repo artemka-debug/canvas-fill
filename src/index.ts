@@ -10,22 +10,16 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 8080;
 const server = new http.Server(app);
-let socket = io(server);
-let redisClient: redis.RedisClient;
-
-if (process.env.REDIS_URL) {
-    redisClient = redis.createClient(process.env.REDIS_URL);
-} else {
-    redisClient = redis.createClient();
-}
+const socket = io(server);
+const redisClient = process.env.REDIS_URL ?
+    redis.createClient(process.env.REDIS_URL) :
+    redis.createClient();
 
 app.use(express.static('public'));
 app.use(bodyParser.json());
 
 socket.on('connection', (socket) => {
-    socket.on('fill-square', (id: number, color: string) => {
-        console.log(id, color);
-    });
+    // socket.emit('connected')
 });
 
 app.post('/fill-square', (req: Request, res: Response) => {
