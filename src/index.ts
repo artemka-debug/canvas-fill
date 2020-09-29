@@ -10,7 +10,7 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 8080;
 const server = new http.Server(app);
-const socket = io(server);
+let socket = io(server);
 const redisClient = process.env.REDIS_URL ?
     redis.createClient(process.env.REDIS_URL) :
     redis.createClient();

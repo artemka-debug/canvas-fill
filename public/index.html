@@ -70,18 +70,63 @@
                 opacity: 0;
             }
         }
+
+        input[type="color"] {
+            -webkit-appearance: none;
+            width: 10px;
+            height: 10px;
+            margin: 0;
+            padding: 0;
+            border: 1px solid gray;
+        }
+
+        input[type="color"]::-webkit-color-swatch-wrapper {
+            padding: 0;
+        }
+
+        .standardColors {
+        }
+
+        .colors {
+
+        }
+
+        .inputs {
+            margin: 10px 0;
+            display: flex;
+            justify-content: space-around;
+        }
     </style>
 </head>
 <body style="margin: 0; padding: 0">
 <div id="placeholder"></div>
+<div class="inputs">
+    <div class="colors">
+        <label>
+            Choose color
+            <input id="colors" type="color" oninput="setCurrentColor('colors')">
+        </label>
+    </div>
+    <div class="standardColors">
+        <label>
+            Choose color from preset
+            <input id="standardColors" type="color" oninput="setCurrentColor('standardColors')">
+        </label>
+    </div>
+</div>
 <script src="bundle.js"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
 <script>
     $(function () {
         window.socket = io();
     });
+
+
+    const setCurrentColor = (id) => {
+        const input = document.getElementById(id);
+        window.color = input.value;
+    }
 </script>
 </body>
 </html>

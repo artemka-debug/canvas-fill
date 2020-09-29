@@ -1,9 +1,17 @@
+import moment from "moment";
+import Axios from "axios";
+
 const changeDivBackgroundColor = (id: string, color: string = '') => {
     const div = document.getElementById(id);
 
     if (div) {
         div.style.backgroundColor = color;
     }
+}
+
+const getCurrentColor = () => {
+    // @ts-ignore
+    return window.color;
 }
 
 const getCookie = (name: string): string => {
@@ -45,7 +53,33 @@ const displayPopupMessage = (message: string = '') => {
     }, 3000);
 }
 
+const addMouseDownEventListener = (div: HTMLElement) => {
+    div.addEventListener('mousedown', async (e: MouseEvent) => {
+        const cookieExpDate = Date.parse(getCookie('date'));
+
+        if (!(e.target && !cookieExpDate)) {
+            const diffSeconds = moment.unix(cookieExpDate / 1000).fromNow();
+            displayPopupMessage(`Cannot fill the pixel because of the timeout. ${diffSeconds}`);
+            return;
+        }
+        // @ts-ignore
+        const id = e.target.id;
+        const color = getCurrentColor();
+
+        changeDivBackgroundColor(id, color);
+        try {
+            const res = await Axios.post('/fill-square', {
+                id, color
+            });
+        } catch (e) {
+            changeDivBackgroundColor(id, 'white');
+            displayPopupMessage('There was an error with changing color of pixel!');
+        }
+    })
+}
+
 export {
+    addMouseDownEventListener,
     changeDivBackgroundColor,
     displayPopupMessage,
     getCookie,
