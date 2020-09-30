@@ -5,114 +5,37 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/index.css">
     <title>Canvas fill</title>
-    <style>
-        .inner {
-            width: 10px;
-            height: 10px;
-            border: 1px solid gray;
-        }
-
-        .outer {
-            display: flex
-        }
-
-        .alert {
-            position: absolute;
-            padding: .75rem 1.25rem;
-            margin: 1rem 1rem;
-            border: 1px solid transparent;
-            border-radius: .25rem;
-            animation: popup-error 1s;
-            -webkit-animation: popup-error 1s;;
-        }
-
-        .alert-danger {
-            color: #721c24;
-            background-color: #f8d7da;
-            border-color: #f5c6cb;
-        }
-
-        .alert-dismissible {
-            padding-right: 4rem;
-        }
-
-        .fade.show {
-            opacity: 1;
-        }
-
-        html {
-            height: 100%;
-            width: 100%;
-        }
-
-        @keyframes popup-error {
-            from {
-                margin: 1rem -25rem;
-            }
-
-            to {
-                margin: 1rem 1rem;
-            }
-        }
-
-        .fade-away {
-            animation: fade-away 0.3s;
-            animation-delay: 2.7s;
-        }
-
-        @keyframes fade-away {
-            from {
-                opacity: 1;
-            }
-
-            to {
-                opacity: 0;
-            }
-        }
-
-        input[type="color"] {
-            -webkit-appearance: none;
-            width: 10px;
-            height: 10px;
-            margin: 0;
-            padding: 0;
-            border: 1px solid gray;
-        }
-
-        input[type="color"]::-webkit-color-swatch-wrapper {
-            padding: 0;
-        }
-
-        .standardColors {
-        }
-
-        .colors {
-
-        }
-
-        .inputs {
-            margin: 10px 0;
-            display: flex;
-            justify-content: space-around;
-        }
-    </style>
 </head>
-<body style="margin: 0; padding: 0">
+<body>
+<script src="src/onClickFunctions.js"></script>
 <div id="placeholder"></div>
 <div class="inputs">
     <div class="colors">
-        <label>
-            Choose color
-            <input id="colors" type="color" oninput="setCurrentColor('colors')">
-        </label>
+        <div class="label">
+            <label for="colors">
+                Choose color
+            </label>
+        </div>
+        <input id="colors" type="color" oninput="setCurrentColor('colors')" list="colorPreset">
+        <button class="zoomButton" onclick="zoomIn()">Zoom in</button>
+        <button class="zoomButton" onclick="zoomOut()">Zoom out</button>
+        <datalist id="colorPreset">
+            <option value="#fcaa67">
+            </option>
+            <option value="#b0413e">
+            </option>
+            <option value="#C47161">
+            </option>
+            <option value="#548687">
+            </option>
+            <option value="#473335">
+            </option>
+        </datalist>
     </div>
-    <div class="standardColors">
-        <label>
-            Choose color from preset
-            <input id="standardColors" type="color" oninput="setCurrentColor('standardColors')">
-        </label>
-    </div>
+</div>
+<div id="field">
 </div>
 <script src="bundle.js"></script>
 <script src="/socket.io/socket.io.js"></script>
@@ -120,13 +43,8 @@
 <script>
     $(function () {
         window.socket = io();
+        window.color = '#000000';
     });
-
-
-    const setCurrentColor = (id) => {
-        const input = document.getElementById(id);
-        window.color = input.value;
-    }
 </script>
 </body>
 </html>

@@ -1,10 +1,9 @@
 import Axios from 'axios';
 import {changeDivBackgroundColor, displayPopupMessage, getCookie, addMouseDownEventListener} from './utils';
-import {colors} from './config';
+import {colors, mainDiv} from './config';
 import io from 'socket.io-client';
 import initCanvas from './initCanvas'
 import moment from "moment";
-import exp = require("constants");
 
 initCanvas();
 const socket = io();
@@ -33,6 +32,7 @@ for (let x = 0; x < squaresInRow; x++) {
         outerDiv.appendChild(div);
     }
 
-    document.body.appendChild(outerDiv);
+    // @ts-ignore
+    mainDiv.appendChild(outerDiv);
 }
 
