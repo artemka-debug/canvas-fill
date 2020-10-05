@@ -1,7 +1,6 @@
 import {Request, Response}     from 'express';
 import { redisClient, socket } from '../index';
 
-
 export const fillSquare = (req: Request, res: Response) => {
     const {id, color} = req.body;
 
