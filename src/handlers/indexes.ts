@@ -1,7 +1,7 @@
 import { redisClient } from '../index';
 import {Response, Request} from 'express';
 
-export const getIndexesHandler = (req: Request, res: Response) => {
+const getIndexesHandler = (req: Request, res: Response) => {
   redisClient.get('squares', ((err, reply) => {
     if (!err && reply) {
       return res.json({result: JSON.parse(reply)});
@@ -9,3 +9,5 @@ export const getIndexesHandler = (req: Request, res: Response) => {
     res.json({result: []});
   }));
 };
+
+export default getIndexesHandler;

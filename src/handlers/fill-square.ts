@@ -1,7 +1,7 @@
 import {Request, Response}     from 'express';
 import { redisClient, socket } from '../index';
 
-export const fillSquare = (req: Request, res: Response) => {
+const fillSquare = (req: Request, res: Response) => {
     const {id, color} = req.body;
 
     redisClient.get('squares', (err, reply) => {
@@ -19,3 +19,5 @@ export const fillSquare = (req: Request, res: Response) => {
         res.json({result: redisClient.set('squares', stringArray)})
     });
 };
+
+export default fillSquare;

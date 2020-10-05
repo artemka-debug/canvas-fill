@@ -4,9 +4,9 @@ import dotenv from 'dotenv';
 import io from 'socket.io';
 import http from 'http';
 import bodyParser from "body-parser";
-import {rootPageHandler} from "./handlers/root-page";
-import {getIndexesHandler} from "./handlers/indexes";
-import {fillSquare} from "./handlers/fill-square";
+import rootPageHandler from "./handlers/root-page";
+import getIndexesHandler from "./handlers/indexes";
+import fillSquare from "./handlers/fill-square";
 
 dotenv.config();
 
@@ -20,9 +20,9 @@ export const redisClient = process.env.REDIS_URL ?
 
 app.use(express.static('public'));
 app.use(bodyParser.json());
-app.get('/', (req: any, res: any) => console.log('hi'));
-// app.get('/indexes', getIndexesHandler);
-// app.post('/fill-square', fillSquare);
+app.get('/', rootPageHandler);
+app.get('/indexes', getIndexesHandler);
+app.post('/fill-square', fillSquare);
 
 server.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);
