@@ -4,9 +4,6 @@ import dotenv from 'dotenv';
 import io from 'socket.io';
 import http from 'http';
 import bodyParser from "body-parser";
-import rootPageHandler from "./handlers/root-page";
-import getIndexesHandler from "./handlers/indexes";
-import fillSquare from "./handlers/fill-square";
 
 dotenv.config();
 
