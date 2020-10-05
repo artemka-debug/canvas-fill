@@ -1,4 +1,4 @@
-import express from 'express';
+import express, {Request, Response} from 'express';
 import redis from 'redis';
 import dotenv from 'dotenv';
 import io from 'socket.io';
@@ -20,9 +20,33 @@ export const redisClient = process.env.REDIS_URL ?
 
 app.use(express.static('public'));
 app.use(bodyParser.json());
-app.get('/', rootPageHandler);
-app.get('/indexes', getIndexesHandler);
-app.post('/fill-square', fillSquare);
+app.get('/', (req: Request, res: Response) => res.send('index.html'));
+app.get('/indexes', (req: Request, res: Response) => {
+    redisClient.get('squares', ((err, reply) => {
+        if (!err && reply) {
+            return res.json({result: JSON.parse(reply)});
+        }
+        res.json({result: []});
+    }));
+});
+app.post('/fill-square', (req: Request, res: Response) => {
+    const {id, color} = req.body;
+
+    redisClient.get('squares', (err, reply) => {
+        let json;
+        if (reply) {
+            json = JSON.parse(reply);
+        }
+
+        if (!json.includes(id)) {
+            json.push({id, color});
+        }
+
+        const stringArray = JSON.stringify(json);
+        socket.emit('fill-square', {id, color});
+        res.json({result: redisClient.set('squares', stringArray)})
+    });
+});
 
 server.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);
