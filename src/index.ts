@@ -18,10 +18,6 @@ const redisClient = process.env.REDIS_URL ?
 app.use(express.static('public'));
 app.use(bodyParser.json());
 
-socket.on('connection', (socket) => {
-    // socket.emit('connected')
-});
-
 app.post('/fill-square', (req: Request, res: Response) => {
     const {id, color} = req.body;
 
