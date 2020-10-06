@@ -5,7 +5,6 @@ const initCanvas = async () => {
     const field = document.getElementById('field');
     if (field) {
         field.style.width = '1440px';
-        field.style.border = '1px solid black';
     }
 
     try {

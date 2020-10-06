@@ -1,10 +1,12 @@
 import Axios from 'axios';
-import {changeDivBackgroundColor, displayPopupMessage, getCookie, addMouseDownEventListener} from './utils';
-import {colors, mainDiv} from './config';
+import {changeDivBackgroundColor,  addMouseDownEventListener} from './utils';
+import {mainDiv} from './config';
+import initOnClickFunctions from './onClickFunctions'
 import io from 'socket.io-client';
 import initCanvas from './initCanvas'
 import moment from "moment";
 
+initOnClickFunctions();
 initCanvas();
 const socket = io();
 const socketClient = socket.connect();
