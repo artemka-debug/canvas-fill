@@ -1,3 +1,24 @@
+const closeButton = () => {
+    const button = document.getElementById('closeButton') as HTMLButtonElement;
+    const inputs = document.getElementById('inputs');
+
+    if (button.value === 'opened' && inputs) {
+        button.style.transition = '0.5s';
+        button.style.transform = 'rotate(180deg)';
+        button.value = 'closed';
+
+        inputs.style.transition = '0.5s';
+        inputs.style.transform = 'translate(-480px, 0px)';
+    } else if (inputs) {
+        button.style.transition = '0.5s';
+        button.style.transform = 'rotate(0deg)';
+        button.value = 'opened';
+
+        inputs.style.transition = '0.5s';
+        inputs.style.transform = 'translate(0px, 0px)';
+    }
+}
+
 const setCurrentColor = () => {
     const input = document.getElementById('colors');
     // @ts-ignore
@@ -35,30 +56,14 @@ const zoomOut = () => {
 }
 
 const initOnClickFunctions = () => {
-    console.log('hi');
     // @ts-ignore
     document.getElementById('zoom-in').addEventListener('click', zoomIn, true)
     // @ts-ignore
     document.getElementById('zoom-out').addEventListener('click', zoomOut, true)
     // @ts-ignore
     document.getElementById('colors').addEventListener('input', setCurrentColor, true)
-
-    const htmlElements = [
-        document.getElementById('zoom-in'),
-        document.getElementById('zoom-out'),
-        document.getElementById('colors')
-    ]
-
-    const onClickFunctions = [
-        zoomIn, zoomOut, setCurrentColor
-    ]
-
     // @ts-ignore
-    for (const [i, element] of htmlElements) {
-        if (element) {
-            element.addEventListener('click', onClickFunctions[i]);
-        }
-    }
+    document.getElementById('closeButton').addEventListener('click', closeButton, true)
 }
 
 export default initOnClickFunctions;

@@ -9,6 +9,8 @@ body {
     max-width: 150px;
     padding: 10px 20px;
     margin: 0 10px;
+    border-radius: 5px;
+    border: none;
 }
 
 .inner {
@@ -93,6 +95,12 @@ input[type="color"]::-webkit-color-swatch-wrapper {
 .standardColors {
 }
 
+.closeButton {
+    border: none;
+    background: none;
+    border-radius: 5px;
+}
+
 .colors {
     display: flex;
     align-items: center;
@@ -100,6 +108,10 @@ input[type="color"]::-webkit-color-swatch-wrapper {
 }
 
 .inputs {
+    padding: 0 10px;
+    position: fixed;
+    background-color: white;
+    height: 60px;
     margin: 10px 0;
     display: flex;
     justify-content: space-around;
@@ -122,4 +134,12 @@ input[type="color"]::-webkit-color-swatch-wrapper {
 
 input[type="color"]::-webkit-color-swatch {
     border: none;
+}
+
+button:focus {
+    outline: none;
+}
+
+button:hover {
+    background-color: aliceblue;
 }
