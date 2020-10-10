@@ -9,9 +9,11 @@ const changeDivBackgroundColor = (id: string, color: string = '') => {
     }
 }
 
+const calculateCoordinates = (n: number, min: number, max: number): number => n > max ? max : (n < min ? min : n);
+
 const getCurrentColor = () => {
     // @ts-ignore
-    return window.color;
+    return (window).color;
 }
 
 const getCookie = (name: string): string => {
@@ -83,4 +85,5 @@ export {
     changeDivBackgroundColor,
     displayPopupMessage,
     getCookie,
+    calculateCoordinates
 }
