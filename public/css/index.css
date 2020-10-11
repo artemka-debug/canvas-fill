@@ -99,6 +99,7 @@ input[type="color"]::-webkit-color-swatch-wrapper {
     border: none;
     background: none;
     border-radius: 5px;
+    transition: 0.5s;
 }
 
 .colors {
@@ -116,6 +117,7 @@ input[type="color"]::-webkit-color-swatch-wrapper {
     margin: 10px 0;
     display: flex;
     justify-content: space-around;
+    transition: transform 0.5s;
 }
 
 .label {

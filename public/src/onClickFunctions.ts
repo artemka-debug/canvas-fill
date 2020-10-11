@@ -13,18 +13,14 @@ const closeButton = () => {
     const inputs = document.getElementById('inputs');
 
     if (button.value === 'opened' && inputs) {
-        button.style.transition = '0.5s';
         button.style.transform = 'rotate(180deg)';
         button.value = 'closed';
 
-        inputs.style.transition = 'transform 0.5s';
         inputs.style.transform = `translate(-${inputs.offsetLeft + 300}px, 0px)`;
     } else if (inputs) {
-        button.style.transition = '0.5s';
         button.style.transform = 'rotate(0deg)';
         button.value = 'opened';
 
-        inputs.style.transition = 'transform 0.5s';
         inputs.style.transform = 'translate(0px, 0px)';
     }
 }
