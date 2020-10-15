@@ -117,11 +117,11 @@ input[type="color"]::-webkit-color-swatch-wrapper {
     margin: 10px 0;
     display: flex;
     justify-content: space-around;
-    transition: transform 0.5s;
+    transition: transform 0.7s;
 }
 
 .label {
-    margin: 0 10px 0 0
+    margin: 0 10px 0 10px
 }
 
 input[type="color"] {

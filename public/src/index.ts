@@ -1,4 +1,3 @@
-import Axios from 'axios';
 import {changeDivBackgroundColor,  addMouseDownEventListener} from './utils';
 import {mainDiv} from './config';
 import initOnClickFunctions from './onClickFunctions'

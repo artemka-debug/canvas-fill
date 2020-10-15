@@ -1,8 +1,14 @@
 const colors = ['#562c2c', '#f2542d', '#0e9594', '#127475'];
 const mainDiv = document.getElementById('field');
 const HTMLBorders = {
-    x: 0,
-    y: 0
+    x: {
+      min: 60,
+      max: window.innerWidth - 10
+    },
+    y: {
+        min: 10,
+        max: window.innerHeight - 50
+    },
 }
 const closeSvg = `
             <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-bar-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

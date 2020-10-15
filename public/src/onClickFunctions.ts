@@ -1,7 +1,6 @@
 import {HTMLBorders} from './config';
 import {calculateCoordinates} from './utils'
 
-const inputs = document.getElementById('inputs') as HTMLDivElement;
 let isDown = false;
 let offset = {
     x: 0,
@@ -16,7 +15,7 @@ const closeButton = () => {
         button.style.transform = 'rotate(180deg)';
         button.value = 'closed';
 
-        inputs.style.transform = `translate(-${inputs.offsetLeft + 300}px, 0px)`;
+        inputs.style.transform = `translate(-${inputs.offsetLeft + 310}px, 0px)`;
     } else if (inputs) {
         button.style.transform = 'rotate(0deg)';
         button.value = 'opened';
@@ -62,6 +61,8 @@ const zoomOut = () => {
 }
 
 const mouseDown = (e: MouseEvent) => {
+    const inputs = document.getElementById('inputs') as HTMLDivElement;
+
     isDown = true;
     offset = {
         x: inputs.offsetLeft - e.clientX,
@@ -74,6 +75,8 @@ const mouseUp = () => {
 }
 
 const mouseMove = (event: MouseEvent) => {
+    const inputs = document.getElementById('inputs') as HTMLDivElement;
+
     event.preventDefault();
     if (!isDown) {
         return;
@@ -83,13 +86,13 @@ const mouseMove = (event: MouseEvent) => {
     const button = document.getElementById('closeButton') as HTMLButtonElement;
 
     if (button.value === 'closed') {
-        mousePosition.y = calculateCoordinates(event.clientY, 10, window.innerHeight - 50);
-        mousePosition.x = +inputs.style.left;
+        mousePosition.y = calculateCoordinates(event.clientY, HTMLBorders.y.min, HTMLBorders.y.max);
+        mousePosition.x = 60;
     }
 
     if (button.value === 'opened') {
-        mousePosition.x = calculateCoordinates(event.clientX, 60, window.innerWidth - 10);
-        mousePosition.y = calculateCoordinates(event.clientY, 10, window.innerHeight - 50);
+        mousePosition.x = calculateCoordinates(event.clientX, HTMLBorders.x.min, HTMLBorders.x.max);
+        mousePosition.y = calculateCoordinates(event.clientY, HTMLBorders.y.min, HTMLBorders.y.max);
     }
 
     inputs.style.left = `${mousePosition.x + offset.x}px`;
@@ -101,9 +104,9 @@ const initOnClickFunctions = () => {
     document.getElementById('zoom-out')?.addEventListener('click', zoomOut, true)
     document.getElementById('colors')?.addEventListener('input', setCurrentColor, true)
     document.getElementById('closeButton')?.addEventListener('click', closeButton, true)
+    document.getElementById('inputs')?.addEventListener('mousedown', mouseDown, true);
     document.addEventListener('mouseup', mouseUp, true);
     document.addEventListener('mousemove', mouseMove, true);
-    inputs.addEventListener('mousedown', mouseDown, true);
 }
 
 export default initOnClickFunctions;
